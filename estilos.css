@@ -1,8 +1,98 @@
-.carrito{
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ----------HEADER---------- */
+.navegador {
+    background-color: black;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.LogoCanarino {
+    height: 75px;
+    width: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+/* ----------BODY---------- */
+body {
+    background-image: url(https://i.ibb.co/vhy99S5/background-img.jpg);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+/* ----------TARJETAS---------- */
+#contenedorTarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.tarjeta {
+    width: 300px;
+    height: 500px;
+    color: black;
+    background-color: white;
+    opacity: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.tarjeta:hover {
+    transform: scale(103%);
+    opacity: 100%;
+}
+
+.tarjeta img {
+    width: 280px;
+    height: 300px;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.tarjeta input {
+    width: 30px;
+    margin-left: 11px;
+}
+
+.tarjeta button {
+    width: 200px;
+    height: 40px;
+    background-color: #E89A25;
+    color: black;
+    border-radius: 5px;
+}
+
+.tarjeta button:hover {
+    transform: scale(102%);
+}
+
+/* ----------CARRITO---------- */
+.carrito {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: #422860;
+    background-color: #7c3b8e;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -10,14 +100,25 @@
     bottom: 20px;
     right: 20px;
     color: #f8bf68;
+    z-index: 90;
 }
 
-.carrito i{
+.carrito i {
     color: #f8bf68;
 
 }
 
-.carrito span{
+#numeroCarrito {
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    text-align: center;
+    color: #f8bf68;
+    left: 45px;
+    top: 28px;
+}
+
+.carrito span {
     position: absolute;
     width: 18px;
     height: 18px;
@@ -28,53 +129,35 @@
     top: 28px;
 }
 
-.navegador{
+/* ----------FOOTER---------- */
+footer {
     background-color: black;
-    width: 100%;
-    height: 120px;
-    
-}
-
-.LogoCanarino{
-    height: 90px;
-    width: 250px;
+    color: white;
     display: flex;
-    justify-content: left;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-left: 550px;
 }
 
-.portada img{
-    width: auto;
-    opacity: 50%;
+.redSocial {
+    margin: 10px;
+    width: 25px;
+    height: 25px;
 }
 
-.tarjeta{
-    width: 250px;
-    height: 300px;
-    border: #422860;
-    border-style: solid;
-    border-radius: 10px;
-    margin: 40px;
-    padding-left: 25px;
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 3fr;
-   
-
+.redSocial:hover{
+    transform: scale(120%);
 }
 
-.tarjeta img{
-    width: 225px;
-    height: 150px;
-    display: flex ;
-    border-radius: 10px;
-}
-
-.tarjeta input{
-    width: 50px;
-}
-
-.tarjeta button{
-    background-color: #422860;
-    color: #f8bf68;
+footer img {
+    width: 125px;
+    height: 50px;
+    margin-left: 20px;
 }
