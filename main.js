@@ -73,8 +73,6 @@ const productos = [
     }
 ]
 
-
-
 //Muestro Tarjetas
 const verProducto = ({ id, nombre, precio, descripcion, stock, urlImg }) => {
     const contenedorTarjetas = document.querySelector("#contenedorTarjetas")
@@ -90,38 +88,36 @@ const verProducto = ({ id, nombre, precio, descripcion, stock, urlImg }) => {
                             <form id="formCarrito${id}">
                             <input name="id" type="hidden" value:${id}>
                             <input name="cantidad" type="number" value="1" min="1" max="${stock}">
-                            <button type="submit"> Agregar al carriito </button>
+                            <button id="${id}"> Agregar al carriito </button>
                             </form>
                          `
     contenedorTarjetas.append(tarjeta)
 }
 
-const verProductos = () => {
-    const contenedorTarjetas = document.createElement("div")
-    contenedorTarjetas.className = "contenedorTarjetas"
-    contenedorTarjetas.id = "contenedotTarjetas"
-    const contenedor = document.querySelector("#contenedor")
-    contenedor.append(contenedorTarjetas)
-    productos.forEach(producto => {
-        if (producto.stock != 0) {
-            verProducto(producto)
-        }
-    })
-}
-
-verProductos()
-
-const carrito = JSON.parse(localStorage.getItem("carrito")) ?? []
 //Agrego al Carrito
-const agregarCarrito = (id) => {
-    const formCarrito = document.querySelector("#formCarrito" + id)
+const carrito = JSON.parse(localStorage.getItem("carrito")) ?? []
+
+const agregarCarrito = (e) => {
+    e.preventDefault()
+    const idProducto = e.target.id
+    console.log (idProducto)
+    const formCarrito = document.querySelector("#formCarrito" + idProducto)
+    const productoElegido = productos.find (p=> p.id === idProducto)
+    console.log(formCarrito['cantidad'].value)
+    console.log(productoElegido)
+    const productoAlCarrito = {
+        ...productoElegido,
+        cantidad:parseInt(formCarrito['cantidad'].value) 
+    }
+    console.log (productoElegido)
+    console.log (productoAlCarrito)
+
+    carrito.push(productoAlCarrito)
+   
+
     formCarrito.addEventListener("submit", (e) => {
         e.preventDefault()
-        const cantidad = e.target.children["cantidad"].value
-        carrito.push((
-            id,
-            cantidad
-        ))
+      
         localStorage.setItem("carrito",JSON,stringify(carrito));
         Swal.fire({
             position: 'top-end',
@@ -132,6 +128,26 @@ const agregarCarrito = (id) => {
           })
     })
 }
+
+
+
+//Veo Productos Seleccionados
+const verProductos = () => {
+    const contenedorTarjetas = document.createElement("div")
+    contenedorTarjetas.className = "contenedorTarjetas"
+    contenedorTarjetas.id = "contenedotTarjetas"
+    const contenedor = document.querySelector("#contenedor")
+    contenedor.append(contenedorTarjetas)
+   productos.forEach((producto) => {
+        if (producto.stock != 0) {
+            const botonCompra = document.getElementById(`${producto.id}`)
+            console.log(botonCompra)
+           botonCompra.addEventListener('click', agregarCarrito)
+            
+        }
+    })
+}
+verProductos()
 
 /*
 const cantidadTotal=0
