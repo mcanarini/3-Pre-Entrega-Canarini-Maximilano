@@ -138,12 +138,11 @@ const verProductos = () => {
     contenedorTarjetas.id = "contenedotTarjetas"
     const contenedor = document.querySelector("#contenedor")
     contenedor.append(contenedorTarjetas)
-   productos.forEach((producto) => {
+    productos.forEach((producto) => {
         if (producto.stock != 0) {
             const botonCompra = document.getElementById(`${producto.id}`)
             console.log(botonCompra)
-           botonCompra.addEventListener('click', agregarCarrito)
-            
+           botonCompra.addEventListener('click', agregarCarrito)          
         }
     })
 }
