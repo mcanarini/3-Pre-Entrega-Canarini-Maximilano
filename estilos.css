@@ -34,7 +34,8 @@ body {
 
 /* ----------CAROUSEL---------- */
 .carousel-item img{
-    height: 250px; 
+    height: 125px; 
+    opacity: 80%;
    }
 
    .carousel-item div{
@@ -42,7 +43,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #E89A25;
     size: 20px;
    }
 

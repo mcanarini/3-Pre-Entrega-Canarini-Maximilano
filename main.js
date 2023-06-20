@@ -73,29 +73,36 @@ const productos = [
     }
 ]
 
+const contenedorTarjetas = document.querySelector("#contenedorTarjetas");
+
+//Agrego al Carrito
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
 //Muestro Tarjetas
-const verProducto = ({ id, nombre, precio, descripcion, stock, urlImg }) => {
-    const contenedorTarjetas = document.querySelector("#contenedorTarjetas");
+const verProducto = () => {
+    productos.forEach((producto) => {
     const tarjeta = document.createElement("div");
     tarjeta.className = "tarjeta"
     tarjeta.innerHTML = `
-                            <img src="${urlImg}"alt="">
+                            <img src="${producto.urlImg}"alt="">
                             <div class="contenido">
-                            <h3>${nombre}</h3>
-                            <p>${descripcion}</p>
-                            <span><b>Precio:</b>${precio}$</span>
+                            <h3>${producto.nombre}</h3>
+                            <p>${producto.descripcion}</p>
+                            <span><b>Precio:</b>${producto.precio}$</span>
                             </div>
-                            <form id="formCarrito${id}">
-                            <input name="id" type="hidden" value:${id}>
-                            <input name="cantidad" type="number" value="1" min="1" max="${stock}">
-                            <button id="${id}"> Agregar al carriito </button>
+                            <form id="formCarrito${producto.id}">
+                            <input name="id" type="hidden" value:${producto.id}>
+                            <input name="cantidad" type="number" value="1" min="1" max="${producto.stock}">
+                            <button id="${producto.id}"> Agregar al carriito </button>
                             </form>
                          `
     contenedorTarjetas.append(tarjeta);
+
+    const botonCompra = document.getElementById(`${producto.id}`);
+    botonCompra.addEventListener('click', agregarCarrito); 
+})
 }
 
-//Agrego al Carrito
-const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 
 const agregarCarrito = (e) => {
     e.preventDefault();
@@ -113,62 +120,16 @@ const agregarCarrito = (e) => {
     console.log (productoAlCarrito);
 
     carrito.push(productoAlCarrito);
-   
+    console.log(carrito);
 
-    formCarrito.addEventListener("submit", (e) => {
-        e.preventDefault();
-      
-        localStorage.setItem("carrito",JSON.stringify(carrito));
+    localStorage.setItem("carrito",JSON.stringify(carrito));
         Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Your work has been saved',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500      
           })
-    })
-}
+    }
 
-//Veo Productos Seleccionados
-const verProductos = () => {
-    const contenedorTarjetas = document.createElement("div");
-    contenedorTarjetas.className = "contenedorTarjetas";
-    contenedorTarjetas.id = "contenedorTarjetas";
-    const contenedor = document.querySelector("#contenedor");
-    contenedor.append(contenedorTarjetas);
-    productos.forEach((producto) => {
-       if (producto.stock != 0) {
-            const botonCompra = document.getElementById(`${producto.id}`);
-            botonCompra.addEventListener('click', agregarCarrito); 
-            console.log(botonCompra);      
-      }
-    })
-}
-verProductos()
-
-/*
-const cantidadTotal=0
-productos.forEach((producto, index) =>{
-    const agregarALCarrito = document.querySelector(`#${producto.id}`)
-    agregarAlCarrito.addEventListener("submit",(e) => {
-        e.preventDefault()
-        const cantidad = parseInt(e.target.children["cantidad"].value)
-        carrito.push({
-            id: productos[index].id,
-            nombre: productos[index].nombre,
-            cantidad:cantidad
-        })
-        cantidadTotal = cantidadTotal + cantidad
-        const numeroCarrito = document.querySelector("#numeroCarrito")
-        numeroCarrito.innerText =cantidadTotal
-    })
-    localStorage.setItem("carrito",JSON,stringify(carrito));
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
-})
-*/
+    verProducto()
